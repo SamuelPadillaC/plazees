@@ -169,7 +169,7 @@ var amountofplacescounter = 0;
         '<button id="sendinputs" type="submit"> Accept </button>'+
         '{% else %}'+
         '<br> You must login to add new places to Plazees. <br>' +
-        '<a href="{% url 'login'%}?next={{request.path}}">Login</a>'+
+        '<a href="{% url "login"%}?next={{request.path}}">Login</a>'+
         '{% endif %}' +
         '</form>';
 
@@ -226,38 +226,10 @@ google.maps.event.addListener(map, 'dblclick', function(event) {
         });
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
         //ADD MARKERS FOR EVER PLACE LISTED BELOW
         var iowaCity = {lat: 41.6612561, lng: -91.5299106};
         var cedarRapids = {lat: 41.9758872, lng: -91.6704053};
-        
         
         var iowaCityMarker = new google.maps.Marker({
             position: iowaCity,
