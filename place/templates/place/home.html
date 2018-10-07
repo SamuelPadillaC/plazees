@@ -169,7 +169,7 @@ var amountofplacescounter = 0;
         '<button id="sendinputs" type="submit"> Accept </button>'+
         '{% else %}'+
         '<br> You must login to add new places to Plazees. <br>' +
-        '<a href="{% url 'login'%}?next={{request.path}}">Login</a>'+
+        '<a href="{% url "login"%}?next={{request.path}}">Login</a>'+
         '{% endif %}' +
         '</form>';
 
