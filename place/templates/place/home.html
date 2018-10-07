@@ -1,0 +1,21 @@
+<form method="POST" onsubmit="return closeSelf(this)" name="newplaceform" id="newplaceform">
+    <div id="inputs">
+        Name: <input id="input1" name="placenameinput" type="text"><br>
+        Description: <input style="height:200px;font-size:14pt;" id="input2" name="descriptioninput" type="text"><br>
+        Latitude: <input id="input3" name="latitudeinput" type="float"><br>
+        Longitude: <input id="input4" name="longitudeinput" type="float"><br>
+    <button id="sendinputs" type="submit"> Accept </button>
+</form>
+
+{% if points_list %}
+    <ul>
+    {% for point in points_list %}
+            <li>{{ point.latitude }}</li>
+            <li>{{ point.longitude }}</li>
+            <li>{{ point.info.name }}</li>
+            <li>{{ point.info.description }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No points are available.</p>
+{% endif %}
