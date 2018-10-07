@@ -40,4 +40,5 @@ Thumbs.db
 #######################
 *.suo
 
-*/__pycache__/
+place/__pycache__/
+plazeslace/__pycache__/
