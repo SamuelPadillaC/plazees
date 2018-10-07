@@ -165,7 +165,12 @@ var amountofplacescounter = 0;
         'Description: <textarea cols="40" rows="5" id="input2" name="descriptioninput" type="text" required></textarea><br>'+
         'Latitude: <input id="input3" name="latitudeinput" type="float" required readonly><br>'+
         'Longitude: <input id="input4" name="longitudeinput" type="float" required readonly><br>'+
+        '{% if user.is_authenticated %}' +
         '<button id="sendinputs" type="submit"> Accept </button>'+
+        '{% else %}'+
+        '<br> You must login to add new places to Plazees. <br>' +
+        '<a href="{% url 'login'%}?next={{request.path}}">Login</a>'+
+        '{% endif %}' +
         '</form>';
 
     //Call the pop up window content

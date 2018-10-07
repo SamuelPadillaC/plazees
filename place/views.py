@@ -24,3 +24,9 @@ def submit(request):
     # with POST data. This prevents data from being posted twice if a
     # user hits the Back button.
     return HttpResponseRedirect(reverse('home'))
+
+##########################
+# Add to the submit form the name of the user who create the Plazee
+# Should the restriction for postig should be through the submit
+#function with a login required decorator?
+#or a simple html if statement?
