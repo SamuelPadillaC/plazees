@@ -1,4 +1,3 @@
-{% load static %}
 <!-- Initialize classes for name, desc, long, lat-->
 <div id="invisible">
     {% if points_list %}
@@ -63,10 +62,6 @@ var amountofplacescounter = 0;
 </head>
 
 <!-- Stylize the search bar and map -->
-
-
-
-
 
 <body>
 <div class="screen1">
@@ -178,7 +173,7 @@ var amountofplacescounter = 0;
     });
         
     //Double Click event listener
-    google.maps.event.addListener(map, 'dblclick', function(event) {
+google.maps.event.addListener(map, 'dblclick', function(event) {
         //placeMarker(event.latLng);
         //On Double click location is found and ready to be sent to database, first I still have to store the whole thing into an array
         var temporaryMarker = new google.maps.Marker({
@@ -187,6 +182,11 @@ var amountofplacescounter = 0;
             title: 'New Marker'
         });
         enterInfoPopUp.open(map, temporaryMarker);
+        console.log(event.latLng.lat(this));
+        console.log(typeof(event.latLng.lng(this)));
+        console.log(event.latLng.lng(this));
+        document.getElementById("input3").value = event.latLng.lat(this);
+        document.getElementById("input4").value = event.latLng.lng(this);
     });
 
 
