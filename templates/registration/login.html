@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="{% static 'place/style1.css' %}">
+
+
 {% block content %}
 
 {% if form.errors %}
@@ -13,6 +16,7 @@
   {% endif %}
 {% endif %}
 
+<div id="custom">
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
@@ -30,7 +34,7 @@
   <input type="hidden" name="next" value="{{ next }}" />
 </div>
 </form>
-
+</div>
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
