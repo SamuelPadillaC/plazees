@@ -28,14 +28,14 @@
   
   
 #thefact {
-    color: white;
-    font-weight: bold;
+    color: black;
+    font-size: 150%;
     text-align:center;
     clear: both;
     margin: 25px auto 25px;
     padding: 1px;
     height: 15%;
-    width: 15%;
+    width: 20%;
     cursor: pointer;
 }
   
@@ -73,55 +73,55 @@
       
 #place1 {
     position: absolute;
-    bottom: -1150px;
-    right: 380px;
+    bottom: -170%;
+    right: 37%;
     border-radius: 70%;
-    width: 325px;
-       height: 325px;
+    width: 17%;
+       height: 30%;
     background-image: url('alliceland.jpg');
     cursor: pointer;
 }
 
 #place2 {
     position: absolute;
-    bottom: -1450px;
-    right: 420px;
+    bottom: -150%;
+    right: 7%;
     border-radius: 100%;
-    width: 215px;
-       height: 215px;
+    width: 14%;
+       height: 25%;
     background-image: url('lucerna.jpg');
     cursor: pointer;
 }
 
 #place3 {
     position: absolute;
-    bottom: -1170px;
-    right: 200px;
+    bottom: -124%;
+    right: 7%;
     border-radius: 100%;
-    width: 125px;
-       height: 125px;
+    width: 10%;
+       height: 17%;
     background-image: url('grandcanyon.jpg');
     cursor: pointer;
 }
 
 #place4 {
     position: absolute;
-    bottom: -1460px;
-    right: 100px;
+    bottom: -165%;
+    right: 20%;
     border-radius: 100%;
-    width: 235px;
-       height: 235px;
+    width: 16%;
+       height: 28%;
     background-image: url('pink.jpg');
     cursor: pointer;
 }
       
 #place5 {
     position: absolute;
-    bottom: -1000px;
-    right: 100px;
+    bottom: -106%;
+    right: 8%;
     border-radius: 100%;
-    width: 125px;
-       height: 125px;
+    width: 7%;
+       height: 12%;
     background-image: url('slope.jpg');
     cursor: pointer;
 }
@@ -175,7 +175,7 @@
 /* Set the map height to 90% */
 #map {
     height: 90%;
-    margin: 0% auto 1%;
+    margin: 0% auto 0%;
 }
 /* Map fills entire window */
 html, body {
