@@ -2,8 +2,11 @@
 <link rel="stylesheet" type="text/css" href="{% static 'place/style1.css' %}">
 <div class = "screen1">
 {% block content %}
-
+<div id="headband"></div>
+<div class="arrow-right"></div><div class="arrow-left"></div>
+<div id="intro">
 {% if form.errors %}
+
   <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
@@ -12,9 +15,10 @@
     <p>Your account doesn't have access to this page. To proceed,
     please login with an account that has access.</p>
   {% else %}
-    <p>Please login to see this page.</p>
+    <p>Please Login To Upload Your Post!</p>
   {% endif %}
 {% endif %}
+</div>
 <div id="custom">
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
