@@ -59,14 +59,10 @@ var amountofplacescounter = 0;
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 <title>Plazees</title>
-<link rel="stylesheet" type="text/css" href="{% static 'place/style.css' %}">"
+<link rel="stylesheet" type="text/css" href="{% static 'place/style.css' %}">
 </head>
 
 <!-- Stylize the search bar and map -->
-
-
-
-
 
 <body>
 <div class="screen1">
@@ -156,7 +152,7 @@ var amountofplacescounter = 0;
     function placeMarker(location){
         var marker = new google.maps.Marker({
             position: location,
-            map:map
+            mFap:map
         });
     }
 
@@ -165,10 +161,10 @@ var amountofplacescounter = 0;
     var enterInfoPopUpContent ='<form method="POST" action="{% url "submit" %}" name="newplaceform" id="newplaceform">' +
         '{% csrf_token %}'+
         '<div id="inputs">'+
-        'Name: <input id="input1" name="placenameinput" type="text"><br>'+
-        'Description: <textarea cols="40" rows="5" id="input2" name="descriptioninput" type="text"></textarea><br>'+
-        'Latitude: <input id="input3" name="latitudeinput" type="float"><br>'+
-        'Longitude: <input id="input4" name="longitudeinput" type="float"><br>'+
+        'Name: <input id="input1" name="placenameinput" type="text" required><br>'+
+        'Description: <textarea cols="40" rows="5" id="input2" name="descriptioninput" type="text" required></textarea><br>'+
+        'Latitude: <input id="input3" name="latitudeinput" type="float" required readonly><br>'+
+        'Longitude: <input id="input4" name="longitudeinput" type="float" required readonly><br>'+
         '<button id="sendinputs" type="submit"> Accept </button>'+
         '</form>';
 
@@ -178,7 +174,7 @@ var amountofplacescounter = 0;
     });
         
     //Double Click event listener
-    google.maps.event.addListener(map, 'dblclick', function(event) {
+google.maps.event.addListener(map, 'dblclick', function(event) {
         //placeMarker(event.latLng);
         //On Double click location is found and ready to be sent to database, first I still have to store the whole thing into an array
         var temporaryMarker = new google.maps.Marker({
@@ -187,6 +183,11 @@ var amountofplacescounter = 0;
             title: 'New Marker'
         });
         enterInfoPopUp.open(map, temporaryMarker);
+        console.log(event.latLng.lat(this));
+        console.log(typeof(event.latLng.lng(this)));
+        console.log(event.latLng.lng(this));
+        document.getElementById("input3").value = event.latLng.lat(this);
+        document.getElementById("input4").value = event.latLng.lng(this);
     });
 
 
