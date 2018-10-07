@@ -24,6 +24,7 @@ def submit(request):
     formPicture = Picture()
     formPicture.info = Info.objects.get(name=request.POST.get('placenameinput'))
     formPicture.picture = request.POST.get('image')
+    formPicture.save()
 
     # Always return an HttpResponseRedirect after successfully dealing
     # with POST data. This prevents data from being posted twice if a
