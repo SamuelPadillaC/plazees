@@ -38,11 +38,6 @@ var amountofplacescounter = 0;
             newlong[amountofplacescounter] = '{{point.longitude}}';
             newname[amountofplacescounter] = '{{point.info.name}}';
             newdesc[amountofplacescounter] = '{{point.info.description}}';
-            console.log(newlat[amountofplacescounter]);
-            console.log(newlong[amountofplacescounter]);
-            console.log(newname[amountofplacescounter]);
-            console.log(newdesc[amountofplacescounter]);
-            console.log(amountofplacescounter);
             amountofplacescounter = amountofplacescounter + 1;
         </script>
 {% endfor %}
@@ -67,7 +62,7 @@ var amountofplacescounter = 0;
 <body>
 <div class="screen1">
   <div id="headband"> 
-  <div id='funfact' style='display:none'> </div><div id='thefact' style='display:none'>  </div>
+  <div id='funfact' style='display:none'> </div><div id='thefact' style='display:none'>  Cliffs of Moher, Ireland </div>
 </div>
   <div id="intro"> 
 <p> If you want to discover more places like this, start browsing below. </p>
@@ -80,8 +75,6 @@ var amountofplacescounter = 0;
 
 <!-- Enter main javascript section for map -->
 <script>
-   
-
 
     // Initialize auto complete for searach bar function
     function initAutocomplete() {
@@ -168,10 +161,11 @@ var amountofplacescounter = 0;
         'Latitude: <input id="input3" name="latitudeinput" type="float" required readonly><br>'+
         'Longitude: <input id="input4" name="longitudeinput" type="float" required readonly><br>'+
         '{% if user.is_authenticated %}' +
+        '<input type="file" accept="image/*" name="image" id="file" required>'+
         '<button id="sendinputs" type="submit"> Accept </button>'+
         '{% else %}'+
         '<br> You must login to add new places to Plazees. <br>' +
-        '<a href="{% url "login"%}?next={{request.path}}">Login</a>'+
+        '<a href="{% url 'login'%}?next={{request.path}}">Login</a>'+
         '{% endif %}' +
         '</form>';
 
@@ -190,9 +184,6 @@ google.maps.event.addListener(map, 'dblclick', function(event) {
             title: 'New Marker'
         });
         enterInfoPopUp.open(map, temporaryMarker);
-        console.log(event.latLng.lat(this));
-        console.log(typeof(event.latLng.lng(this)));
-        console.log(event.latLng.lng(this));
         document.getElementById("input3").value = event.latLng.lat(this);
         document.getElementById("input4").value = event.latLng.lng(this);
     });
@@ -207,31 +198,140 @@ google.maps.event.addListener(map, 'dblclick', function(event) {
     var locationMarkers = [];
     var temporaryLatitude;
     var temporaryLongitude;
-    
+    var tempName;
+    var infoWindow = [];
+    var descriptionString;
+
+
+    //Messing with object classes!
+    function markerInfo(passedName, passedDescription, passedLatitude, passedLongitude){
+        this.name = passedName;
+        this.description = passedDescription;
+        temporaryLatitude = parseFloat(passedLatitude);
+        temporaryLongitude = parseFloat(passedLongitude);
+        this.location = {lat: temporaryLatitude, lng: temporaryLongitude};
+    }
+
+    function infoWindowClass(descriptionStringPassed){
+        this.infowin = descriptionStringPassed;
+    }
+
+    console.log("THE SIZE ISSSSS");
+    console.log(amountofplacescounter);
 
     // For loop to run through every element
     for(var placeInList = 0; placeInList < amountofplacescounter; placeInList++){
+        var newstring = "";
+        var bodycontent = "";
 
-        console.log(newlat[placeInList]);
-        console.log(newlong[placeInList]);
-        console.log(newname[placeInList]);
-        console.log(newdesc[placeInList]);
+        //console.log(newlat[placeInList]);
+        //console.log(newlong[placeInList]);
+        //console.log(newname[placeInList]);
+        //console.log(newdesc[placeInList]);
 
-        temporaryLatitude = parseFloat(newlat[placeInList]);
-        temporaryLongitude = parseFloat(newlong[placeInList]);
-        locationCoordinates[placeInList] = {lat: temporaryLatitude, lng: temporaryLongitude};
+        // temporaryLatitude = parseFloat(newlat[placeInList]);
+        // temporaryLongitude = parseFloat(newlong[placeInList]);
+        // locationCoordinates[placeInList] = {lat: temporaryLatitude, lng: temporaryLongitude};
+        // tempName = newname[placeInList];
+        
+        // locationMarkers[placeInList] = new google.maps.Marker({
+        //     position: locationCoordinates[placeInList],
+        //     map: map,
+        //     title: newname[placeInList]
+        // });
+
+        // descriptionString[placeInList] = '<div id="content">'+
+        // '<div id="siteNotice">'+
+        // '</div>'+
+        // '<h1 id="firstHeading" class="firstHeading">thisname</h1>';
+
+        // infoWindow[placeInList] = new google.maps.InfoWindow({
+        //     content: descriptionString[placeInList]
+        // });
+
+        // var temporaryMarker = locationMarkers[placeInList];
+        // var temporaryInfoWindow = infoWindow[placeInList];
+        
+        // temporaryMarker.addListener('click', function() {
+        //     temporaryInfoWindow.open(map, temporaryMarker);
+        // });
+        
+        console.log("NEW MARKER HERE");
+        locationMarkers[placeInList] = new markerInfo(newname[placeInList], newdesc[placeInList], newlat[placeInList], newlong[placeInList]);
+        console.log(locationMarkers[placeInList].name);
+        console.log(locationMarkers[placeInList].description);
         
         locationMarkers[placeInList] = new google.maps.Marker({
-            position: locationCoordinates[placeInList],
+            position: locationMarkers[placeInList].location,
             map: map,
-            title: newname[placeInList]
+            title: locationMarkers[placeInList].name
         });
 
+        var tempheader = newname[placeInList];
+        var tempbody = newdesc[placeInList];
+        newstring = tempheader;
+        bodycontent = tempbody;
+
+        descriptionString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">'+newstring+'</h1>'+
+        '<div id="bodyContent">'+
+        '<p id="descriptionID">'+bodycontent+'</p>'+
+        '</div>'+
+        '</div>';
+
+        infoWindow[placeInList] = new google.maps.InfoWindow({
+            content: descriptionString,
+            position: locationMarkers[placeInList].location
+        });
+
+        
+
+
+        let temporaryMarker = locationMarkers[placeInList];
+        let temporaryInfoWindow = infoWindow[placeInList];
+
+        locationMarkers[placeInList].addListener('click', function() {
+            //document.getElementById("firstHeading").innerHTML = "TEST";
+            temporaryInfoWindow.open(map, temporaryMarker);
+        });
+
+        console.log("infoWindowHere");
+        console.log(descriptionString[placeInList]);
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
         //ADD MARKERS FOR EVER PLACE LISTED BELOW
         var iowaCity = {lat: 41.6612561, lng: -91.5299106};
         var cedarRapids = {lat: 41.9758872, lng: -91.6704053};
+        
         
         var iowaCityMarker = new google.maps.Marker({
             position: iowaCity,
@@ -252,7 +352,7 @@ google.maps.event.addListener(map, 'dblclick', function(event) {
         var contentString = '<div id="content">'+
         '<div id="siteNotice">'+
         '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">TTTTUluru</h1>'+
+        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
         '<div id="bodyContent">'+
         '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
         'sandstone rock formation in the southern part of the '+
@@ -277,19 +377,6 @@ google.maps.event.addListener(map, 'dblclick', function(event) {
         iowaCityMarker.addListener('click', function() {
             iowaCityInfoWindow.open(map, iowaCityMarker);
         });
-        
-        
-        // for(var i=0; i<numberofplaces; i++){
-
-        //     new newmarker[i] = new google.maps.Marker({
-        // 	position: placesarray[i].coordinates,
-        // 	map: map,
-        //     title: placesarray[i].name
-        //     });
-            
-            
-        // }
-
     }
     
           
