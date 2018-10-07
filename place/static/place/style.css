@@ -28,14 +28,14 @@
   
   
 #thefact {
-    color: white;
-    font-weight: bold;
+    color: black;
+    font-size: 150%;
     text-align:center;
     clear: both;
     margin: 25px auto 25px;
     padding: 1px;
     height: 15%;
-    width: 15%;
+    width: 20%;
     cursor: pointer;
 }
   
