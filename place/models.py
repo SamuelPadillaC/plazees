@@ -13,4 +13,10 @@ class Point(models.Model):
     latitude = models.FloatField(max_length=25)
     longitude = models.FloatField(max_length=25)
     def __str__(self):
-        return "Point: " + str(self.id)
+        return "Point: " + str(self.info.name)
+
+class Picture(models.Model):
+    info = models.ForeignKey(Info, on_delete=models.CASCADE)
+    picture = models.FileField(upload_to='uploads/')
+    def __str__(self):
+        return "Point: " + str(self.info.name)
